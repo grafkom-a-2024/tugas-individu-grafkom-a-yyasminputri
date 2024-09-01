@@ -84,9 +84,8 @@ var InitDemo = function () {
 		return;
 	}
 
-	//
+
 	// Create buffer
-	//
 	var boxVertices = 
 	[ // X, Y, Z           R, G, B
 		// Top
@@ -131,23 +130,18 @@ var InitDemo = function () {
 		// Top
 		0, 1, 2,
 		0, 2, 3,
-
 		// Left
 		5, 4, 6,
 		6, 4, 7,
-
 		// Right
 		8, 9, 10,
 		8, 10, 11,
-
 		// Front
 		13, 12, 14,
 		15, 14, 12,
-
 		// Back
 		16, 17, 18,
 		16, 18, 19,
-
 		// Bottom
 		21, 20, 22,
 		22, 20, 23
@@ -204,9 +198,7 @@ var InitDemo = function () {
 	var xRotationMatrix = new Float32Array(16);
 	var yRotationMatrix = new Float32Array(16);
 
-	//
 	// Main render loop
-	//
 	var identityMatrix = new Float32Array(16);
 	mat4.identity(identityMatrix);
 	var angle = 0;
