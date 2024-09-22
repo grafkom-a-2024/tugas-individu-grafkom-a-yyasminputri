@@ -70,6 +70,7 @@ Dalam pembuatan kode ini, saya memerlukan 3 file, yaitu css, js dan html
     var scale = [1, 1];
 
     ...
+    
     webglLessonsUI.setupSlider("#x", {value: rotation[0], slide: updatePosition(0), max: gl.canvas.width });
     webglLessonsUI.setupSlider("#y", {value: rotation[1], slide: updatePosition(1), max: gl.canvas.height});
     webglLessonsUI.setupSlider("#angle", {slide: updateAngle, max: 360});
@@ -81,6 +82,13 @@ Dalam pembuatan kode ini, saya memerlukan 3 file, yaitu css, js dan html
     webglLessonsUI.setupSlider("#y", {value: translation[1], slide: updatePosition(1), max: gl.canvas.height});
     ```
 - html : Kode ini mengatur elemen canvas dan antarmuka pengguna untuk aplikasi WebGL yang menampilkan objek yang dapat diputar, diubah, dan dipindahkan. Shader vertex mengelola rotasi, skala, dan translasi posisi titik sebelum menggambar, sementara shader fragment menetapkan warna objek. Dengan menggunakan dua skrip eksternal, webgl-lessons-ui.js dan rotating.js, aplikasi ini berinteraksi dengan antarmuka pengguna untuk mengubah parameter rotasi secara dinamis.
+
+- Output Result Rotating
+  <img width="1440" alt="Screenshot 2024-09-22 at 11 54 24" src="https://github.com/user-attachments/assets/17ad3a36-3ca6-49b8-94ff-1eee1761affc">
+- Output Result Translating
+  <img width="1440" alt="Screenshot 2024-09-22 at 11 54 41" src="https://github.com/user-attachments/assets/cba5a5bf-709d-4215-9dee-6223267fb078">
+- Output Result Scaling
+<img width="1440" alt="Screenshot 2024-09-22 at 11 54 33" src="https://github.com/user-attachments/assets/00dac464-a999-4f96-8f22-6dc22769eae4">
 
 
 
