@@ -1,7 +1,7 @@
-## Tugas Individu
+# Tugas Individu Grafkom A
 ### Nama : Yasmin Putri <br> NRP : 5025221273
 
-### Tugas 1 
+## Tugas 1 - Program Sederhana (2D)
 Membuat Program Sederhana dengan WebGL, saya berhasil menggambar segitiga berwarna pink dengan latar belakang abu-abu `gl.clearColor(0.5, 0.5, 0.5, 1.0);`.
 Membuat segitiga pink dengan 3 vertex dan 3 buah segitiga. 
 ```
@@ -27,8 +27,8 @@ File JavaScript eksternal bernama app.js diimpor untuk mengatur dan menggambar g
 - Output Result
   <img width="789" alt="Screenshot 2024-09-22 at 11 33 36" src="https://github.com/user-attachments/assets/c20d05af-d2f4-43cd-a3d5-52a455f814ea">
 
-### Tugas 2
- Implementasi 2D Rotating, Translation, Scaling, Matrices dalam WebGL, saya berhasil mengimplemntasikan dengan letter 'L', dimana bentuk tersebut berwarna pink. 
+## Tugas 2 - Rotating, Translation, Scaling,
+ Implementasi 2D Rotating, Translation, Scaling Matrix dalam WebGL, saya berhasil mengimplemntasikan dengan letter 'L', dimana bentuk tersebut berwarna pink. 
  ```
 function setL(gl){
     gl.bufferData(
@@ -89,8 +89,8 @@ Dalam pembuatan kode ini, saya memerlukan 3 file, yaitu css, js dan html
 - Output Result Scaling
 <img width="1440" alt="Screenshot 2024-09-22 at 11 54 33" src="https://github.com/user-attachments/assets/00dac464-a999-4f96-8f22-6dc22769eae4">
 
-### Tugas 3
-### 3D Animation
+## Tugas 3
+### 1. 3D Animation
 Saya membuat animasi 3d dengan bentuk cube, bola, cone, dan ring. Pembuatan ini hanya memerlukan 1 file yang bernama html. 
 - Cube : Kode HTML ini membuat aplikasi WebGL yang menggambar kubus 3D dengan enam wajah berwarna pastel yang berbeda. Kubus dirender menggunakan buffer untuk menyimpan vertex dan warna, serta shader untuk mengatur tampilan objek. Animasi rotasi diterapkan untuk memberikan efek dinamis saat kubus ditampilkan.
 ```
@@ -130,10 +130,11 @@ var indices = [
     20, 21, 22, 20, 22, 23  // Top face
 ];
 ```
-- Output Result Cube
-<img width="1440" alt="Screenshot 2024-09-22 at 12 03 31" src="https://github.com/user-attachments/assets/8440e533-937c-4572-8253-7bc4daf701b5">
-  
+<br>
+Output Result Cube
+<img width="1440" alt="Screenshot 2024-09-22 at 12 03 31" src="https://github.com/user-attachments/assets/8440e533-937c-4572-8253-7bc4daf701b5"> <br>
 - Ball : Kode HTML ini membuat aplikasi WebGL yang menggambar bola 3D dengan efek warna gradasi, menggunakan vertex dan fragment shaders untuk mengatur tampilan objek. Selain itu, kode ini menerapkan transformasi matriks dan animasi rotasi untuk memberikan efek dinamis pada bola saat ditampilkan. Dengan menggunakan buffer untuk menyimpan vertex, warna, dan indeks, objek 3D dapat dirender secara efisien.
+
 ```
 var radius = 1.0;
 var latBands = 25;
@@ -157,8 +158,9 @@ for (var latNumber = 0; latNumber <= latBands; latNumber++) {
 
 ...
 ```
-- Output Result Ball
-<img width="1440" alt="Screenshot 2024-09-22 at 12 03 15" src="https://github.com/user-attachments/assets/a7708c8b-133e-470b-b6ca-66cd80c498cc">
+<br> 
+Output Result Ball
+<img width="1440" alt="Screenshot 2024-09-22 at 12 03 15" src="https://github.com/user-attachments/assets/a7708c8b-133e-470b-b6ca-66cd80c498cc"> <br>
 
 - Cone : Kode ini untuk membuat tampilan 3D sebuah kerucut/cone menggunakan WebGL. Kerucut ini memiliki warna gradasi yang berbeda di bagian alas dan ujungnya, serta dapat berputar secara dinamis. Kode ini mencakup pembuatan buffer untuk geometri, warna, dan pengaturan shader untuk merender kerucut/cone.
 ```
@@ -200,10 +202,35 @@ var indices = [
     9, 8, 1
 ];
 ```
-- Output Result Cone 
-<img width="1440" alt="Screenshot 2024-09-22 at 12 03 01" src="https://github.com/user-attachments/assets/b2ed6b90-71a7-40c7-8214-2f06f9d944a5">
+<br> 
+Output Result Cone 
+<img width="1440" alt="Screenshot 2024-09-22 at 12 03 01" src="https://github.com/user-attachments/assets/b2ed6b90-71a7-40c7-8214-2f06f9d944a5"> <br>
 
 - Ring : Kode HTML ini menghasilkan bentuk ring 3D menggunakan WebGL. Dengan menggunakan dua jari-jari (inner dan outer), program ini membangun geometri ring dan memberikan warna yang bervariasi untuk setiap vertex. Efek rotasi ditambahkan untuk membuat tampilan lebih dinamis.
-- Output Result Ring 
-<img width="1312" alt="Screenshot 2024-09-22 at 12 02 49" src="https://github.com/user-attachments/assets/2a0a994b-4b24-4db9-801c-ca2673df03d8">
+```
+// Vertices for the cone
+        var vertices = [];
+        var colors = [];
+        var indices = [];
+        var radius = 1;
+        var height = 2;
+        var radialSegments = 30;
+
+        // Base circle vertices
+        vertices.push(0, 0, 0); // Center of base
+        colors.push(1, 0, 0); // Red for center
+
+...
+
+// Tip of the cone
+        vertices.push(0, 0, height);
+        colors.push(0, 0, 1); // Blue for tip
+
+        // Side triangles
+        for (var i = 1; i < radialSegments; i++) {
+            indices.push(i, i + 1, radialSegments + 1);
+        }
+```
+Output Result Ring
+<img width="1312" alt="Screenshot 2024-09-22 at 12 02 49" src="https://github.com/user-attachments/assets/2a0a994b-4b24-4db9-801c-ca2673df03d8"> <br>
 
