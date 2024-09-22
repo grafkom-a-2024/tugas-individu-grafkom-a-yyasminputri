@@ -264,7 +264,8 @@ function setGeometry(gl) {
 ```
 - js : Kode ini menginisialisasi konteks WebGL, membuat program shader, dan mengatur data geometri serta warna untuk menggambar kubus berwarna-warni. Fungsi drawScene digunakan untuk menggambar kubus dengan transformasi translasi, rotasi, dan skala yang dapat disesuaikan menggunakan slider. Shader vertex dan fragment ditentukan dalam elemen <script> di HTML untuk mengontrol tampilan kubus di kanvas.
   - Langkah : Buat elemen <canvas> di HTML dan ambil konteks WebGL menggunakan getContext("webgl"). Menulis shader vertex dan fragment untuk mendefinisikan geometri dan warna, lalu siapkan buffer untuk posisi dan warna kubus. Implementasikan fungsi drawScene untuk menggambar kubus dengan transformasi yang diatur oleh kontrol UI, dan panggil fungsi ini saat halaman dimuat.
-- css : 
+- css : CSS ini mengatur tampilan aplikasi WebGL dengan latar belakang pink muda dan memastikan kanvas mengisi seluruh layar. UI slider ditempatkan di sudut kanan atas dan disusun secara vertikal untuk kemudahan penggunaan. Font yang digunakan memberikan sentuhan klasik pada antarmuka.
+    - Langkah : Siapkan elemen HTML yang mencakup kanvas dan kontainer UI untuk slider. Lalu, membuat file CSS untuk mengatur gaya tampilan, termasuk latar belakang, ukuran kanvas, dan penataan slider. Serta, Implementasikan JavaScript untuk menghubungkan slider dengan rotasi, skala, dan translasi objek 3D.
 - html : Dokumen HTML ini membuat halaman dengan judul "Rainbow Cube" dan menampilkan kanvas WebGL berukuran 400x400 piksel. Terdapat juga elemen untuk mengontrol rotasi kubus dalam tiga sumbu. Vertex dan fragment shader ditulis dalam elemen <script> terpisah, dan skrip tambahan dimuat dari sumber eksternal untuk mendukung fungsi WebGL.
   - Langkah : Dokumen HTML dimulai dengan deklarasi tipe dan struktur dasar, termasuk elemen <head> untuk metadata dan judul, serta elemen <body> yang memuat kanvas WebGL. Di dalam <body>, terdapat elemen kanvas untuk menggambar kubus, dan skrip shader ditulis dalam elemen <script> terpisah. Skrip JavaScript eksternal diimpor untuk mendukung fungsi WebGL dan logika aplikasi.
 
@@ -285,6 +286,9 @@ matrix = m4.xRotate(matrix, rotation[0]);
 matrix = m4.yRotate(matrix, rotation[1]);
 matrix = m4.zRotate(matrix, rotation[2]);
 ```
+Output Result Rotating
+<img width="1440" alt="Screenshot 2024-09-22 at 12 21 43" src="https://github.com/user-attachments/assets/82018324-dd39-4652-a7ab-54ee9bb942a7">
+
 - Scaling
 ```
 var scale = [100, 100, 100];
@@ -299,6 +303,9 @@ function updateScale(index) {
 // Dalam fungsi drawScene
 matrix = m4.scale(matrix, scale[0], scale[1], scale[2]);
 ```
+Output Result Scaling
+<img width="1440" alt="Screenshot 2024-09-22 at 12 21 58" src="https://github.com/user-attachments/assets/f86e8a13-2544-4625-a18a-845c085e80cd">
+
 - Translating
 ```
 var translation = [300, 300, 100];
@@ -306,6 +313,7 @@ var translation = [300, 300, 100];
 function updatePosition(index) {
     return function(event, ui) {
         translation[index] = ui.value;
+
         drawScene();
     };
 }
@@ -313,3 +321,5 @@ function updatePosition(index) {
 // Dalam fungsi drawScene
 matrix = m4.translate(matrix, translation[0], translation[1], translation[2]);
 ```
+Output Result Translating
+<img width="1440" alt="Screenshot 2024-09-22 at 12 21 21" src="https://github.com/user-attachments/assets/ad1daf0e-937e-4593-9f8e-cb22a1170251">
