@@ -234,3 +234,82 @@ Output Result Cone
 Output Result Ring
 <img width="1312" alt="Screenshot 2024-09-22 at 12 02 49" src="https://github.com/user-attachments/assets/2a0a994b-4b24-4db9-801c-ca2673df03d8"> <br>
 
+### 2. Animation
+Dalam mengaplikasikan animation (Rotating, Scaling dan Translating) hanya memerlukan 3 file, yaitu js, css, dan html. 
+Pembuatan Cubenya sebagai bentuk utama 
+```
+function setGeometry(gl) {
+    gl.bufferData(
+        gl.ARRAY_BUFFER,
+        new Float32Array([
+            // Front face
+            -1, -1,  1,
+             1, -1,  1,
+             1,  1,  1,
+            -1, -1,  1,
+             1,  1,  1,
+            -1,  1,  1,
+            // Back face
+            -1, -1, -1,
+             1, -1, -1,
+             1,  1, -1,
+            -1, -1, -1,
+             1,  1, -1,
+            -1,  1, -1,
+            // ... (other faces)
+        ]),
+        gl.STATIC_DRAW
+    );
+}
+```
+- js : Kode ini menginisialisasi konteks WebGL, membuat program shader, dan mengatur data geometri serta warna untuk menggambar kubus berwarna-warni. Fungsi drawScene digunakan untuk menggambar kubus dengan transformasi translasi, rotasi, dan skala yang dapat disesuaikan menggunakan slider. Shader vertex dan fragment ditentukan dalam elemen <script> di HTML untuk mengontrol tampilan kubus di kanvas.
+  - Langkah : Buat elemen <canvas> di HTML dan ambil konteks WebGL menggunakan getContext("webgl"). Menulis shader vertex dan fragment untuk mendefinisikan geometri dan warna, lalu siapkan buffer untuk posisi dan warna kubus. Implementasikan fungsi drawScene untuk menggambar kubus dengan transformasi yang diatur oleh kontrol UI, dan panggil fungsi ini saat halaman dimuat.
+- css : 
+- html : Dokumen HTML ini membuat halaman dengan judul "Rainbow Cube" dan menampilkan kanvas WebGL berukuran 400x400 piksel. Terdapat juga elemen untuk mengontrol rotasi kubus dalam tiga sumbu. Vertex dan fragment shader ditulis dalam elemen <script> terpisah, dan skrip tambahan dimuat dari sumber eksternal untuk mendukung fungsi WebGL.
+  - Langkah : Dokumen HTML dimulai dengan deklarasi tipe dan struktur dasar, termasuk elemen <head> untuk metadata dan judul, serta elemen <body> yang memuat kanvas WebGL. Di dalam <body>, terdapat elemen kanvas untuk menggambar kubus, dan skrip shader ditulis dalam elemen <script> terpisah. Skrip JavaScript eksternal diimpor untuk mendukung fungsi WebGL dan logika aplikasi.
+
+- Rotating
+```
+var rotation = [degToRad(40), degToRad(25), degToRad(325)];
+function updateRotation(index) {
+    return function(event, ui) {
+        var angleInDegrees = ui.value;
+        var angleInRadians = angleInDegrees * Math.PI / 180;
+        rotation[index] = angleInRadians;
+        drawScene();
+    };
+}
+
+// Dalam fungsi drawScene
+matrix = m4.xRotate(matrix, rotation[0]);
+matrix = m4.yRotate(matrix, rotation[1]);
+matrix = m4.zRotate(matrix, rotation[2]);
+```
+- Scaling
+```
+var scale = [100, 100, 100];
+
+function updateScale(index) {
+    return function(event, ui) {
+        scale[index] = ui.value;
+        drawScene();
+    };
+}
+
+// Dalam fungsi drawScene
+matrix = m4.scale(matrix, scale[0], scale[1], scale[2]);
+```
+- Translating
+```
+var translation = [300, 300, 100];
+
+function updatePosition(index) {
+    return function(event, ui) {
+        translation[index] = ui.value;
+        drawScene();
+    };
+}
+
+// Dalam fungsi drawScene
+matrix = m4.translate(matrix, translation[0], translation[1], translation[2]);
+```
