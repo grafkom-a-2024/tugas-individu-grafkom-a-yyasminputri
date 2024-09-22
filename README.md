@@ -54,4 +54,45 @@ function setL(gl){
     );
 }
 ```
+Dalam pembuatan kode ini, saya memerlukan 3 file, yaitu css, js dan html
+- css : Kode CSS ini mendefinisikan gaya untuk elemen HTML dalam aplikasi WebGL, dengan fokus pada tampilan dan interaksi antarmuka pengguna. Ia mengatur tata letak responsif untuk berbagai ukuran layar dan mendukung mode gelap, meningkatkan keterbacaan dan aksesibilitas. Selain itu, pengaturan khusus untuk elemen canvas memastikan tampilan yang konsisten dan menarik, baik dalam tampilan biasa maupun dalam iframe.
+- js : Kode ini menginisialisasi aplikasi WebGL untuk menggambar bentuk huruf "L" yang dapat diputar, diubah bentuk dan dipindahkan di canvas. Shader vertex dan fragment diproses dan dihubungkan ke program GLSL, sementara antarmuka pengguna memungkinkan pengguna untuk mengubah posisi rotasi melalui slider. Fungsi drawScene bertanggung jawab untuk memperbarui dan menggambar ulang objek di canvas setiap kali ada perubahan input.
+  - Rotating :
+    ```
+    var rotationLocation = gl.getUniformLocation(program, "u_rotation");
+    var translationLocation = gl.getUniformLocation(program, "u_translation");
+    var scaleLocation = gl.getUniformLocation(program, "u_scale");
+
+    ...
+
+    var translation = [100, 0];
+    var rotation = [0, 1];
+    var scale = [1, 1];
+
+    ...
+    webglLessonsUI.setupSlider("#x", {value: rotation[0], slide: updatePosition(0), max: gl.canvas.width });
+    webglLessonsUI.setupSlider("#y", {value: rotation[1], slide: updatePosition(1), max: gl.canvas.height});
+    webglLessonsUI.setupSlider("#angle", {slide: updateAngle, max: 360});
+    
+    webglLessonsUI.setupSlider("#scaleX", {value: scale[0], slide: updateScale(0), min: 0, max: 10, step: 0.01, precision: 2});
+    webglLessonsUI.setupSlider("#scaleY", {value: scale[1], slide: updateScale(1), min: 0, max: 10, step: 0.01, precision: 2});
+
+    webglLessonsUI.setupSlider("#x", {value: translation[0], slide: updatePosition(0), max: gl.canvas.width });
+    webglLessonsUI.setupSlider("#y", {value: translation[1], slide: updatePosition(1), max: gl.canvas.height});
+    ```
+- html : Kode ini mengatur elemen canvas dan antarmuka pengguna untuk aplikasi WebGL yang menampilkan objek yang dapat diputar, diubah, dan dipindahkan. Shader vertex mengelola rotasi, skala, dan translasi posisi titik sebelum menggambar, sementara shader fragment menetapkan warna objek. Dengan menggunakan dua skrip eksternal, webgl-lessons-ui.js dan rotating.js, aplikasi ini berinteraksi dengan antarmuka pengguna untuk mengubah parameter rotasi secara dinamis.
+
+
+
+
+
+
+
+
+
+
+
+
+
 - Rotating
+  - 
