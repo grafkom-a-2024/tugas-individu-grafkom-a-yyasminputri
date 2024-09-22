@@ -323,3 +323,118 @@ matrix = m4.translate(matrix, translation[0], translation[1], translation[2]);
 ```
 Output Result Translating
 <img width="1440" alt="Screenshot 2024-09-22 at 12 21 21" src="https://github.com/user-attachments/assets/ad1daf0e-937e-4593-9f8e-cb22a1170251">
+
+### 3. Camera
+Membuat camera 360 derajat menggunakan elemen bola. Dalam membuat segitiga ini, hanya memerlukan 2 file, yaitu css, js dan html
+- css : CSS ini mengatur gaya untuk elemen <body> dan <canvas>, memastikan bahwa kanvas memenuhi seluruh viewport dengan latar belakang berwarna biru muda. Elemen <pre> ditempatkan secara absolut di sudut kanan atas dengan gaya font Georgia dan border biru gelap. Padding dan line-height pada elemen <pre> disesuaikan untuk mengurangi jarak dan memberikan tampilan yang lebih ringkas.
+    - Langkah : Atur margin body ke nol untuk menghilangkan ruang kosong di sekitar kanvas. Sesuaikan ukuran kanvas agar memenuhi seluruh jendela tampilan dan berikan latar belakang yang menarik. Tempatkan elemen instruksi dalam <pre> dengan gaya yang jelas dan konsisten untuk meningkatkan keterbacaan.
+- js : Kode di atas adalah sebuah program WebGL yang menggambar bola dengan pencahayaan, memungkinkan pengguna untuk menggerakkan kamera menggunakan input keyboard. Program ini mengatur matriks transformasi untuk perspektif, posisi, dan orientasi kamera, serta menghitung pencahayaan berdasarkan arah cahaya. Pengguna dapat mengubah posisi, rotasi, dan elevasi kamera untuk melihat objek dari berbagai sudut.
+      - Langkah Pertama Inisialisasi konteks WebGL, shader, dan buffer untuk menggambar bola menggunakan TWGL, serta atur matriks untuk proyeksi, kamera, dan transformasi objek. Dalam fungsi render, perbarui posisi dan orientasi kamera berdasarkan input keyboard, serta hitung transformasi untuk setiap objek yang akan digambar. Setel atribut dan uniform shader, kemudian gambar objek di layar menggunakan twgl.drawBufferInfo di dalam loop animasi yang berkelanjutan.
+- html : HTML ini menyajikan aplikasi WebGL untuk menampilkan kubus dengan kontrol kamera. Elemen kanvas disiapkan untuk rendering grafik 3D, sementara informasi kontrol ditampilkan dalam elemen <pre>. Skrip dari TWGL digunakan untuk menyederhanakan pengembangan WebGL.
+      - Langkah : Buat elemen HTML dengan kanvas untuk rendering dan bagian teks untuk instruksi kontrol. Sertakan pustaka TWGL untuk membantu dalam manajemen shader dan buffer WebGL. Implementasikan JavaScript untuk menangani logika rendering dan kontrol kamera dalam file app.js.
+
+```
+m4.identity(camera);
+m4.scale(world, [0.5, 0.5, 0.5], world);     
+m4.translate(camera, [px, py, pz], camera);
+m4.rotateX(camera, degToRad(elev), camera);   
+m4.rotateY(camera, degToRad(-ang), camera);   
+m4.rotateZ(camera, degToRad(roll), camera);
+  
+m4.inverse(camera, view);
+```
+
+Output Result Camera
+<img width="1440" alt="Screenshot 2024-09-22 at 12 25 18" src="https://github.com/user-attachments/assets/09d0b5c7-4807-4048-b645-e50ebd22127e">
+
+### 4. Lathe 
+Dalam membuat lathe ini, hanya memerlukan 3 file, yaitu css, js dan html
+- css : CSS ini mengatur gaya untuk halaman web yang menggunakan WebGL. Elemen body diatur tanpa margin, sedangkan elemen canvas dirancang untuk mengisi seluruh lebar dan tinggi viewport dengan latar belakang berwarna merah muda. Selain itu, canvas ditampilkan sebagai blok agar tidak ada ruang ekstra di sekitarnya.
+- js : Fungsi main mengonfigurasi WebGL untuk menggambar objek 3D menggunakan metode lathe berdasarkan titik-titik yang dihasilkan dari kurva Bezier. Dengan menggunakan parameter seperti toleransi, sudut awal dan akhir, serta jumlah divisi, fungsi generateMesh menciptakan mesh yang sesuai dengan bentuk yang diinginkan. Matriks proyeksi dan tampilan diatur untuk menentukan posisi kamera, sementara fungsi render bertanggung jawab untuk menggambar objek di kanvas.
+- html : Dokumen HTML ini memuat aplikasi WebGL untuk menggambar objek 3D menggunakan shader vertex dan fragment. Shader yang disertakan mengatur bagaimana posisi, tekstur, dan pencahayaan diterapkan pada objek, termasuk perhitungan pencahayaan spekular. Terdapat juga elemen UI dan pustaka tambahan untuk membantu mengelola WebGL dan perhitungan matematis yang diperlukan.
+```
+function generateMesh(bufferInfo) {
+    const tempPoints = getPointsOnBezierCurves(curvePoints, data.tolerance);
+    const points = simplifyPoints(tempPoints, 0, tempPoints.length, data.distance);
+    const tempArrays = lathePoints(points, data.startAngle, data.endAngle, data.divisions, data.capStart, data.capEnd);
+    const arrays = generateNormals(tempArrays, data.maxAngle);
+    const extents = getExtents(arrays.position);
+    // ...
+}
+```
+
+Output Result Lathe
+<img width="1440" alt="Screenshot 2024-09-22 at 12 40 39" src="https://github.com/user-attachments/assets/bbe4e626-3f68-4d7e-bb87-f80b8a17a64a">
+
+### 5. Lighting 
+Dalam membuat Lighting ini dengan elemen kubus, hanya memerlukan 3 file, yaitu css, js dan html
+- css : CSS ini mengatur tampilan halaman dengan menghapus margin dan mengatur kanvas agar memenuhi seluruh viewport dengan latar belakang berwarna pink muda. Elemen-elemen kontrol UI seperti batas dan rotasi cahaya serta kubus memiliki gaya font yang konsisten menggunakan font "Georgia" dengan ukuran yang ditentukan. Input tipe "range" juga menggunakan font yang sama tetapi dengan ukuran yang sedikit lebih kecil untuk keseragaman visual.
+- js : Kode js merupakan implementasi WebGL untuk menggambar objek kubus 3D dengan pencahayaan dan rotasi yang dapat diatur melalui slider. Program ini membuat shader, mengatur buffer untuk posisi dan normal, serta menghitung matriks transformasi untuk proyeksi dan pencahayaan. Interaksi pengguna memungkinkan pengaturan rotasi kubus dan arah sumber cahaya secara dinamis.
+  - Langkah :
+  - 1. Inisialisasi WebGL dan Program Shader: Kode ini mulai dengan mendapatkan konteks WebGL dari kanvas dan memeriksa keberhasilannya. Kemudian, program shader dibuat dari skrip vertex dan fragment shader yang telah didefinisikan sebelumnya.
+  - 2. Pengaturan Buffer untuk Geometri dan Normal: Buffer untuk posisi (geometri) dan normal kubus dibuat. Fungsi setGeometry dan setNormals dipanggil untuk mengisi buffer dengan data posisi dan normal untuk setiap sisi kubus.
+  - 3. Mengatur Matriks Proyeksi dan Kamera: Matriks proyeksi dan kamera dihitung menggunakan fungsi m4.perspective dan m4.lookAt. Matriks ini digunakan untuk menentukan bagaimana objek 3D dilihat dari perspektif kamera.
+  - 4. Pengaturan Uniforms untuk Shader: Semua lokasi uniform (seperti warna, posisi cahaya, dan matriks) diambil dan kemudian diatur sebelum menggambar. Ini mencakup mengatur warna untuk masing-masing sisi kubus dan posisi serta arah cahaya.
+  - 5. Menggambar Adegan: Fungsi drawScene mengatur viewport, membersihkan buffer warna dan kedalaman, dan menggunakan program shader untuk menggambar kubus. Rotasi dan pengaturan cahaya juga dilakukan berdasarkan input dari slider yang ada di UI, sebelum akhirnya memanggil gl.drawArrays untuk menggambar kubus.
+- html : Dokumen HTML ini mendefinisikan sebuah halaman web yang menampilkan objek 3D menggunakan WebGL dengan efek pencahayaan. Terdapat shader vertex dan fragment yang menghitung pencahayaan dan warna berdasarkan posisi cahaya dan sudut pandang pengguna. UI yang disediakan memungkinkan pengguna untuk mengontrol rotasi cahaya dan kubus, serta batas pencahayaan.
+
+```
+var worldViewProjectionLocation = gl.getUniformLocation(program, "u_worldViewProjection");
+  var worldInverseTransposeLocation = gl.getUniformLocation(program, "u_worldInverseTranspose");
+  var lightWorldPositionLocation = gl.getUniformLocation(program, "u_lightWorldPosition");
+  var viewWorldPositionLocation = gl.getUniformLocation(program, "u_viewWorldPosition");
+  var lightDirectionLocation = gl.getUniformLocation(program, "u_lightDirection");
+
+...
+
+// cube normals
+function setNormals(gl) {
+  var normals = new Float32Array([
+    0, 0, 1,
+    0, 0, 1,
+    0, 0, 1,
+    // ... (lanjutkan dengan normal untuk sisi lainnya)
+  ]);
+```
+
+Output Result Lighting 
+<img width="1440" alt="Screenshot 2024-09-22 at 12 40 59" src="https://github.com/user-attachments/assets/71950c5a-08fa-4e96-be71-a7a8bd06f164">
+
+### 6. Texture
+Dalam membuat Texture ini dengan elemen kubus, hanya memerlukan 3 file, yaitu css, js dan html dan ditambah dengan foto texturenya 
+- css : CSS ini mengatur gaya untuk elemen <body> dan <canvas>. Body memiliki margin nol, menghilangkan scroll, dan latar belakang berwarna pink muda (#FFD1DC). Canvas diatur agar memenuhi seluruh area tampilan dengan lebar dan tinggi 100% viewport.
+- js : Kode ini menggunakan WebGL untuk menggambar sebuah kubus 3D dengan rotasi dan tekstur yang diterapkan pada setiap sisi kubus. Tekstur dimuat secara dinamis dari gambar eksternal dan diatur agar sesuai dengan setiap wajah kubus menggunakan koordinat tekstur. Kubus kemudian digambar dalam sebuah loop yang memperbarui rotasi berdasarkan waktu.
+- html : HTML ini membuat halaman web untuk menampilkan tekstur pada kubus menggunakan WebGL. Terdapat elemen <canvas> untuk menggambar, serta shader vertex dan fragment untuk mengatur posisi dan tekstur. Skrip tambahan dari pustaka WebGL digunakan untuk memfasilitasi pengoperasian grafis 3D.
+
+```
+    const program = webglUtils.createProgramFromScripts(gl, ["vertex-shader-3d", "fragment-shader-3d"]);
+    const texcoordLocation = gl.getAttribLocation(program, "a_texcoord");
+    const textureLocation = [];
+    
+    for (let i = 0; i < 6; i++) {
+        textureLocation[i] = gl.getUniformLocation(program, `u_texture[${i}]`);
+    }
+
+    const texcoordBuffer = gl.createBuffer();
+    gl.bindBuffer(gl.ARRAY_BUFFER, texcoordBuffer);
+    setTexcoords(gl);
+
+    const textures = [];
+    const textureUrls = [
+        "texture.png", // Add more textures if needed
+    ];
+
+    for (let i = 0; i < textureUrls.length; i++) {
+        (function(i) {
+            ...
+        })(i);
+    }
+
+    function setTexcoords(gl) {
+        const texcoords = new Float32Array([
+           ...
+        ]);
+        gl.bufferData(gl.ARRAY_BUFFER, texcoords, gl.STATIC_DRAW);
+    }
+}
+```
